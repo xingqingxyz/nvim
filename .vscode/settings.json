@@ -1,0 +1,9 @@
+{
+  "Lua.runtime.version": "LuaJIT",
+  "Lua.workspace.library": [
+    "lua",
+    "C:/Program Files/Neovim/share/nvim/runtime/lua"
+  ],
+  "Lua.completion.autoRequire": false,
+  "openctx.enable": true
+}
