@@ -12,7 +12,7 @@ View.__index = View
 View.augroup = api.nvim_create_augroup('lib/view', {})
 
 function View.new()
-  local self = setmetatable({ __metatable = View }, View)
+  local self = setmetatable({}, View)
   api.nvim_create_autocmd('WinClosed', {
     group = View.augroup,
     callback = function(e)
@@ -78,7 +78,8 @@ end
 
 function View:on_VimResized()
   if self:is_visible() then
-    local win_config = self:make_win_config(api.nvim_buf_get_lines(self._bufnr, 0, -1, true))
+    local win_config =
+      self:make_win_config(api.nvim_buf_get_lines(self._bufnr, 0, -1, true))
     if win_config then
       win_config.hide = false
       api.nvim_win_set_config(self._window, win_config)
@@ -99,7 +100,13 @@ end
 function View:next_page(delta)
   assert(self:is_visible(), 'no visible window')
   local cursor = api.nvim_win_get_cursor(self._window)
-  cursor[1] = math.max(1, math.min(cursor[1] + delta * self._win_config.height, api.nvim_buf_line_count(self._bufnr)))
+  cursor[1] = math.max(
+    1,
+    math.min(
+      cursor[1] + delta * self._win_config.height,
+      api.nvim_buf_line_count(self._bufnr)
+    )
+  )
   api.nvim_win_set_cursor(self._window, cursor)
 end
 
@@ -110,7 +117,8 @@ function View:get_win_config()
   end
   local win_config = api.nvim_win_get_config(self._window)
   if type(win_config.row) == 'table' then
-    win_config.row, win_config.col = win_config.row[vim.val_idx], win_config.col[vim.val_idx]
+    win_config.row, win_config.col =
+      win_config.row[vim.val_idx], win_config.col[vim.val_idx]
   end
   return win_config
 end

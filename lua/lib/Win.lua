@@ -82,6 +82,12 @@ function Win:call(win_cb)
   api.nvim_win_call(self.win, win_cb)
 end
 
+---@param enter boolean
+---@param config vim.api.keyset.win_config
+function Win:open(enter, config)
+  return api.nvim_open_win(self:buf(), enter, config)
+end
+
 ---@param range lsp.Range
 function Win:text_height(range)
   ---@type vim.api.keyset.win_text_height

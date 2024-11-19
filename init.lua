@@ -19,5 +19,7 @@ end
 _G.ts = vim.treesitter
 _G.tsq = ts.query
 
-vim.opt.rtp:append(vim.fs.dirname(vim.uv.fs_realpath(debug.getinfo(1,'S').short_src)))
+vim.opt.rtp:append(
+  vim.fs.dirname(vim.uv.fs_realpath(debug.getinfo(1, 'S').short_src))
+)
 require 'editor'
