@@ -32,12 +32,22 @@ function M.get_border_size(border)
       shadow = { 1, 1 },
     }
     if border_size[border] == nil then
-      error(string.format('invalid floating preview border: %s. :help vim.api.nvim_open_win()', vim.inspect(border)))
+      error(
+        string.format(
+          'invalid floating preview border: %s. :help vim.api.nvim_open_win()',
+          vim.inspect(border)
+        )
+      )
     end
     return unpack(border_size[border])
   else
     if 8 % #border ~= 0 then
-      error(string.format('invalid floating preview border: %s. :help vim.api.nvim_open_win()', vim.inspect(border)))
+      error(
+        string.format(
+          'invalid floating preview border: %s. :help vim.api.nvim_open_win()',
+          vim.inspect(border)
+        )
+      )
     end
     local function border_width(id)
       id = (id - 1) % #border + 1
@@ -48,7 +58,12 @@ function M.get_border_size(border)
         -- border specified as a list of border characters
         return vim.fn.strdisplaywidth(border[id])
       end
-      error(string.format('invalid floating preview border: %s. :help vim.api.nvim_open_win()', vim.inspect(border)))
+      error(
+        string.format(
+          'invalid floating preview border: %s. :help vim.api.nvim_open_win()',
+          vim.inspect(border)
+        )
+      )
     end
     local function border_height(id)
       id = (id - 1) % #border + 1
@@ -59,7 +74,12 @@ function M.get_border_size(border)
         -- border specified as a list of border characters
         return #border[id] > 0 and 1 or 0
       end
-      error(string.format('invalid floating preview border: %s. :help vim.api.nvim_open_win()', vim.inspect(border)))
+      error(
+        string.format(
+          'invalid floating preview border: %s. :help vim.api.nvim_open_win()',
+          vim.inspect(border)
+        )
+      )
     end
     local height = border_height(2) + border_height(6)
     local width = border_width(4) + border_width(8)
@@ -77,7 +97,10 @@ function M.normal_validate(opts, defaults, pre)
   local values = {}
   for k, v in pairs(opts) do
     if type(v) == 'table' then
-      assert(type(defaults[k]) == 'table', 'invalid table for ' .. pre .. k .. ', expected ' .. type(defaults[k]))
+      assert(
+        type(defaults[k]) == 'table',
+        'invalid table for ' .. pre .. k .. ', expected ' .. type(defaults[k])
+      )
       M.normal_validate(v, defaults[k], pre .. k .. '.')
     else
       values[pre .. k] = { v, type(defaults[k]), true }
@@ -160,5 +183,7 @@ function M.once(cb)
     end
   end
 end
+
+M.iswindows = vim.fn.has 'win32'
 
 return M

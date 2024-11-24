@@ -97,7 +97,6 @@ nvim_open_win
 
 local Api = {}
 local empty_opts = vim.empty_dict()
-Api.is_windows = vim.uv.os_uname().sysname == 'Windows_NT'
 
 ---@param key integer|string|vim.api.keyset.get_autocmds
 ---@param opts? vim.api.keyset.create_autocmd
