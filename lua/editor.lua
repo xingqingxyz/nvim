@@ -15,16 +15,20 @@ require('surround').setup()
 require('terminal').setup()
 
 -- #region go
+go.splitright = true
+go.splitbelow = true
 go.cursorline = true
 go.scrolloff = 5
+go.updatetime = 100
+go.pumheight = 12
+go.tabclose = 'uselast'
+go.completeopt = 'menuone,popup'
 go.wildmode = 'longest,full'
 go.wildoptions = 'pum,tagfile'
 go.dictionary = '/usr/share/dict/words,~/.words'
 go.thesaurus = '~/.thesaurus'
-go.updatetime = 100
-go.completeopt = 'menuone,popup'
-go.pumheight = 12
-vim.opt.listchars:append 'precedes:<,extends:>,tab:>-,lead:.,trail:.,nbsp:%'
+go.fileencodings = 'fileencodings=ucs-bom,utf-8,euc-cn,euc-tw,default,latin1'
+vim.opt.listchars:prepend 'precedes:<,extends:>,tab:>-,lead:.,trail:.,nbsp:%'
 -- #endregion
 
 map({ 'n', 'v', 'i' }, '<M-j>', edit.move_lines_down, { desc = 'move lines down' })
@@ -42,15 +46,15 @@ Au.add('FileType', {
     local bo = vim.bo[e.buf]
     local ft = bo.filetype
     if
-      vim.list_contains({
-        'javascript',
-        'typescript',
-        'javascriptreact',
-        'typescriptreact',
-        'vue',
-        'svelte',
-        'mdx',
-      }, ft)
+        vim.list_contains({
+          'javascript',
+          'typescript',
+          'javascriptreact',
+          'typescriptreact',
+          'vue',
+          'svelte',
+          'mdx',
+        }, ft)
     then
       bo.iskeyword = '@,48-57,_,-,$'
     elseif vim.list_contains({ 'sh', 'html', 'xml' }, ft) then
@@ -62,7 +66,7 @@ Au.add('FileType', {
       bo.iskeyword = '@,48-57,_'
     end
     bo.expandtab = not vim.list_contains({ 'go' }, ft)
-    if vim.list_contains({ 'rust', 'go', 'ps1', 'python', 'mojo', 'java', 'csharp' }, ft) then
+    if vim.list_contains({ 'rust', 'go', 'python', 'mojo', 'java', 'csharp' }, ft) then
       bo.shiftwidth = 4
       bo.softtabstop = 4
     else
