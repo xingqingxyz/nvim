@@ -17,7 +17,7 @@ require('terminal').setup()
 -- #region go
 go.splitright = true
 go.splitbelow = true
-go.cursorline = true
+go.grepprg = 'rg --vimgrep --hidden'
 go.scrolloff = 5
 go.updatetime = 100
 go.pumheight = 12

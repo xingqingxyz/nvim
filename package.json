@@ -1,8 +1,15 @@
 {
   "devDependencies": {
-    "@types/node": "^22.9.0"
+    "@types/node": "^22.10.2",
+    "@types/bun": "latest"
   },
   "dependencies": {
     "neovim": "^5.3.0"
+  },
+  "name": "nvim",
+  "module": "index.ts",
+  "type": "module",
+  "peerDependencies": {
+    "typescript": "^5.0.0"
   }
 }
