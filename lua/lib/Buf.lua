@@ -69,6 +69,17 @@ function Buf.new(bufnr)
   return setmetatable({ buf = bufnr }, Buf)
 end
 
+---@param line string|vim.NIL|nil
+function Buf.current_line(line)
+  if line == nil then
+    return api.nvim_get_current_line()
+  elseif line == vim.NIL then
+    api.nvim_del_current_line()
+  else
+    api.nvim_set_current_line(line)
+  end
+end
+
 function Buf.split_lines(text)
   if type(text) == 'table' then
     return text
@@ -210,16 +221,6 @@ function Buf:autocmd(key, opts)
     api.nvim_del_autocmd(key)
   else
     return api.nvim_get_autocmds(key)
-  end
-end
-
-function Buf:curline(line)
-  if line == nil then
-    return api.nvim_get_current_line()
-  elseif line == false then
-    api.nvim_del_current_line()
-  else
-    api.nvim_set_current_line(line)
   end
 end
 

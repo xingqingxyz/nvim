@@ -111,17 +111,8 @@ function Api.autocmd(key, opts)
   end
 end
 
-function Api.line(...)
-  local line = ...
-  if select('#', ...) == 0 then
-    return api.nvim_get_current_line()
-  elseif line == nil then
-    api.nvim_del_current_line()
-  else
-    api.nvim_set_current_line(line)
-  end
-end
-
+---@overload fun():string
+---@overload fun(dir:string)
 function Api.cwd(dir)
   if dir == nil then
     return vim.uv.cwd()
